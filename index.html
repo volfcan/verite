@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dropdown with Search</title>
+  <style>
+    .dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: #f9f9f9;
+      min-width: 200px;
+      overflow-y: auto;
+      border: 1px solid #ddd;
+      z-index: 1;
+    }
+
+    .dropdown-content a {
+      padding: 12px 16px;
+      display: block;
+      text-decoration: none;
+      color: black;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f1f1f1;
+    }
+
+    .show {
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<div class="dropdown">
+  <input type="text" placeholder="Search.." onkeyup="filterDropdown()" id="searchInput">
+  <div class="dropdown-content" id="dropdownContent">
+    <a href="#">Option 1</a>
+    <a href="#">Option 2</a>
+    <a href="#">Option 3</a>
+    <a href="#">Option 4</a>
+    <a href="#">Option 5</a>
+    <a href="#">Option 6</a>
+    <a href="#">Option 7</a>
+    <a href="#">Option 8</a>
+    <a href="#">Option 9</a>
+    <a href="#">Option 10</a>
+  </div>
+</div>
+<script>
+function filterDropdown() {
+  var input, filter, dropdown, items, a, i, txtValue;
+  input = document.getElementById("searchInput");
+  filter = input.value.toUpperCase();
+  dropdown = document.getElementById("dropdownContent");
+  items = dropdown.getElementsByTagName("a");
+  for (i = 0; i < items.length; i++) {
+    a = items[i];
+    txtValue = a.textContent || a.innerText;
+    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+      items[i].style.display = "";
+    } else {
+      items[i].style.display = "none";
+    }
+  }
+}
+
+document.addEventListener("click", function(e) {
+  var dropdowns = document.getElementsByClassName("dropdown-content");
+  for (var d = 0; d < dropdowns.length; d++) {
+    var openDropdown = dropdowns[d];
+    if (openDropdown.classList.contains('show') && !openDropdown.parentNode.contains(e.target)) {
+      openDropdown.classList.remove('show');
+    }
+  }
+});
+
+document.addEventListener("input", function() {
+  document.getElementById("dropdownContent").classList.add("show");
+});
+</script>
+
+</body>
+</html>
